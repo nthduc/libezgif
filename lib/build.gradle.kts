@@ -16,6 +16,8 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
 }
+group = "dev.nthduc.ezgif"
+version = "1.0"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -50,7 +52,7 @@ dependencies {
     implementation(libs.ktor.kotlinx.json)
     implementation(libs.json)
     implementation(libs.jsoup)
-
+    implementation("dev.nthduc.ezgif:lib:1.0")
 
 }
 
@@ -75,10 +77,10 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/OWNER/REPO")
+            url = uri("https://maven.pkg.github.com/nthduc/libezgif")
             credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("gpr.user") as String
+                password = project.findProperty("gpr.key") as String
             }
         }
     }
