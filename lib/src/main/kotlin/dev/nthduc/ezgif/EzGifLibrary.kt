@@ -13,14 +13,14 @@ import org.jsoup.Jsoup
 class EzGifLibrary {
     private val client = HttpClient()
 
-    suspend fun webp2gif(source: String): String {
-        val getUrl = client.get("https://ezgif.com/webp-to-gif?url=$source")
+    private suspend fun convert(source: String, conversionType: String): String {
+        val getUrl = client.get("https://ezgif.com/$conversionType?url=$source")
         val postUrl = getUrl.request.url.toString()
         val parts = postUrl.split('/')
         val lastPart = parts.last()
 
         val res = client.submitFormWithBinaryData(
-            url = "https://ezgif.com/webp-to-gif/$lastPart?ajax=true",
+            url = "https://ezgif.com/$conversionType/$lastPart?ajax=true",
             formData = formData {
                 append("file", lastPart)
             },
@@ -31,40 +31,8 @@ class EzGifLibrary {
 
         return "https:$saveUrl"
     }
-    suspend fun jpg2webp(source: String): String {
-        val getUrl = client.get("https://ezgif.com/jpg-to-webp?url=$source")
-        val postUrl = getUrl.request.url.toString()
-        val parts = postUrl.split('/')
-        val lastPart = parts.last()
 
-        val res = client.submitFormWithBinaryData(
-            url = "https://ezgif.com/jpg-to-webp/$lastPart?ajax=true",
-            formData = formData {
-                append("file", lastPart)
-            },
-        )
-
-        val document = Jsoup.parse(res.bodyAsText())
-        val saveUrl = document.select("p.outfile img").attr("src")
-
-        return "https:$saveUrl"
-    }
-    suspend fun png2webp(source: String): String {
-        val getUrl = client.get("https://ezgif.com/png-to-webp?url=$source")
-        val postUrl = getUrl.request.url.toString()
-        val parts = postUrl.split('/')
-        val lastPart = parts.last()
-
-        val res = client.submitFormWithBinaryData(
-            url = "https://ezgif.com/png-to-webp/$lastPart?ajax=true",
-            formData = formData {
-                append("file", lastPart)
-            },
-        )
-
-        val document = Jsoup.parse(res.bodyAsText())
-        val saveUrl = document.select("p.outfile img").attr("src")
-
-        return "https:$saveUrl"
-    }
+    suspend fun webp2gif(source: String) = convert(source, "webp-to-gif")
+    suspend fun jpg2webp(source: String) = convert(source, "jpg-to-webp")
+    suspend fun png2webp(source: String) = convert(source, "png-to-webp")
 }
