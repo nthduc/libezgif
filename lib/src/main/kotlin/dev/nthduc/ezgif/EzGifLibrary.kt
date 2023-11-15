@@ -23,6 +23,13 @@ class EzGifLibrary {
             url = "https://ezgif.com/$conversionType/$lastPart?ajax=true",
             formData = formData {
                 append("file", lastPart)
+                if (lastPart.endsWith(".mp4")) {
+                    append("start", "0")
+                    append("end", "4")
+                    append("size", "original")
+                    append("fps", "10")
+                    append("method", "ffmpeg")
+                }
             },
         )
 
@@ -35,4 +42,13 @@ class EzGifLibrary {
     suspend fun webp2gif(source: String) = convert(source, "webp-to-gif")
     suspend fun jpg2webp(source: String) = convert(source, "jpg-to-webp")
     suspend fun png2webp(source: String) = convert(source, "png-to-webp")
+    suspend fun gif2webp(source: String) = convert(source, "gif-to-webp")
+
+    suspend fun webp2png(source: String) = convert(source, "webp-to-png")
+
+    suspend fun video2gif(source: String) = convert(source, "video-to-gif")
+    suspend fun video2webp(source: String) = convert(source, "video-to-webp")
+
+
+
 }

@@ -19,7 +19,7 @@
     }
 
     group = "io.github.nthduc.ezgif"
-    version = "0.0.6"
+    version = "0.0.7"
 
     repositories {
         // Use Maven Central for resolving dependencies.
@@ -89,7 +89,7 @@
                 from(components["java"])
                 groupId = "io.github.nthduc"
                 artifactId = "ezgif"
-                version = "0.0.6"
+                version = "0.0.7"
 
                 pom {
                     name.set("Library Ezgif")

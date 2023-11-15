@@ -12,5 +12,7 @@ class EzGifLibraryTest {
      fun someLibraryMethodReturnsTrue() = runBlocking {
         val classUnderTest = EzGifLibrary()
         assertTrue(classUnderTest.webp2gif("https://images-ng.pixai.art/images/orig/eadd7d20-1079-4b6a-9c56-7a2767b929ba").length > 15, "someLibraryMethod should return 'true'")
+        assertTrue(classUnderTest.video2gif("https://videos.pixai.art/351f7bf8-bf43-4cbc-8757-293e9d70e89a").length > 15, "someLibraryMethod should return 'true'")
+
     }
 }
